@@ -19,17 +19,18 @@ public class HomeWorkTest {
 
         driverManager = DriverManager.getInstance();
         //Тут можно выбирать браузер CHROME, FIREFOX, EDGE
-        driverManager.createDriver(DriverManager.Browser.CHROME,false);
+        driverManager.createDriver(DriverManager.Browser.CHROME, false);
     }
 
     @Test
     @DisplayName("Тест в режиме headless")
     public void fillText() throws InterruptedException {
         driverManager.quitDriver();
-        driverManager.createDriver(DriverManager.Browser.CHROME,true);
+        driverManager.createDriver(DriverManager.Browser.CHROME, true);
         driverManager.getDriver().get(URL);
         WebElement label = driverManager.getDriver().findElement(By.id("textInput"));
         label.sendKeys("ОТУС");
+        log.info("Произошел ввод текста");
         assertEquals("ОТУС", label.getAttribute("value"));
         label.clear();
     }
@@ -42,8 +43,7 @@ public class HomeWorkTest {
         driverManager.getDriver().get(URL);
         WebElement modal = driverManager.getDriver().findElement(By.id("openModalBtn"));
         modal.click();
-        log.debug("Произошел клик по кнопке");
-        //Ожидание на поиск элемента
+        log.info("Произошел клик по кнопке");
         assertTrue(driverManager.getDriver().findElement(By.id("closeModal")).isDisplayed(), "Модальное окно не найдено");
 
 
@@ -60,6 +60,7 @@ public class HomeWorkTest {
         mail.sendKeys("asdf@sdfg.rt");
         WebElement submit = driverManager.getDriver().findElement(By.cssSelector("form button[type=\"submit\"]"));
         submit.click();
+        log.info("Произошел клик по кнопке");
         WebElement message = driverManager.getDriver().findElement(By.id("messageBox"));
         assertEquals("Форма отправлена с именем: фыв и email: asdf@sdfg.rt", message.getText());
 
