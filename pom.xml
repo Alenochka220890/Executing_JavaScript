@@ -13,11 +13,13 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junitJupiterApi.version>5.11.4</junitJupiterApi.version>
-        <junitJupiterParams.version>5.9.2</junitJupiterParams.version>
+        <!--       <junitJupiterParams.version>5.9.2</junitJupiterParams.version>-->
         <webdrivermanager.version>6.1.0</webdrivermanager.version>
         <log4jCore.version>2.23.1</log4jCore.version>
         <seleniumJava.version>4.33.0</seleniumJava.version>
         <maven.plugins.version>3.2.5</maven.plugins.version>
+        <assertj.version>3.27.3</assertj.version>
+        <compiler.version>3.13.0</compiler.version>
     </properties>
 
     <dependencies>
@@ -28,12 +30,12 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junitJupiterParams.version}</version> <!-- или актуальная версия -->
-            <scope>test</scope>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.junit.jupiter</groupId>-->
+        <!--            <artifactId>junit-jupiter-params</artifactId>-->
+        <!--            <version>${junitJupiterParams.version}</version> &lt;!&ndash; или актуальная версия &ndash;&gt;-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -54,11 +56,43 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.plugins.version}</version>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.version}</version>
+                <configuration>
+                    <target>${maven.compiler.target}</target>
+                    <source>${maven.compiler.source}</source>
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.plugins.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <base.url>https://otus.home.kartushin.su</base.url>
+                        <browser>chrome</browser>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
 
 </project>
