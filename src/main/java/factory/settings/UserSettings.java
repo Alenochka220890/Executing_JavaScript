@@ -15,8 +15,7 @@ public final class UserSettings {
         return EMAIL;
     }
 
-    public static String getPassword() {
-        return PASSWORD;
+    public static String getPassword() {return PASSWORD;
     }
 
     // Запрещаем создание экземпляров класса
